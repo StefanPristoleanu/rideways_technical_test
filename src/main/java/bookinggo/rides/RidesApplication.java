@@ -129,15 +129,21 @@ public class RidesApplication {
     
     protected static void sortCarsDesc(List<CarPrice> carList) {
         Collections.sort(carList);
-        System.out.println("Final descending list: " + carList);
+        System.out.println("Sorted list: " + carList);
     }
     
     protected static void chooseBestCars(List<CarPrice> carList) {
-        Collections.sort(carList);
+        //Collections.sort(carList);
         List<CarPrice> bestCars = new ArrayList<>();
-        bestCars.add(carList.get(0));
-        for (int i = 1; i < carList.size() - 1; i++) {
-            if (carList.get(i).getCarType() != carList.get(i + 1).getCarType()) {
+        bestCars.add(carList.get(carList.size() - 1));
+        for (int i = carList.size() - 2; i >= 0; i--) {
+            boolean foundCarType= false;
+            for(int j = 0; j < bestCars.size(); j++){
+                if(bestCars.get(j).getCarType().equals(carList.get(i).getCarType())){
+                    foundCarType = true;
+                }
+            }
+            if (!foundCarType) {
                 bestCars.add(carList.get(i));
             }
         }
