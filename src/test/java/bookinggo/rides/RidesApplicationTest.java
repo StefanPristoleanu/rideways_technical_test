@@ -44,14 +44,14 @@ public class RidesApplicationTest {
      * Test of connect method, of class RidesApplication.
      */
     @Test
-    public void testConnect() {
+    public void testProcessRequest() {
         String[] args = null;
-        Boolean result = RidesApplication.connect(args);
+        Boolean result = RidesApplication.processRequest(args);
         System.out.println("connect: " + result);
         assertFalse(result);
         
-        args = "pickup=51.470020,-0.454295&dropoff=51.00000,1.0000 5".split(" ");
-        result = RidesApplication.connect(args);
+        args = "1 pickup=51.470020,-0.454295&dropoff=51.00000,1.0000 5".split(" ");
+        result = RidesApplication.processRequest(args);
         System.out.println("connect: " + result);
         assertTrue(result);
     }
