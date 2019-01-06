@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,7 @@ public class RestControllerAPI {
     
     // curl http://localhost:8080/api/dave-cars-descending?pickup=51.470020,-0.454295&dropoff=51.00000,1.0000
     @RequestMapping(value = "/dave-cars-descending", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<CarPrice> daveAPI(@RequestParam("pickup") String pickup, @RequestParam("dropoff") String dropoff) throws UnirestException {
+    public ResponseEntity<?> daveAPI(@RequestParam("pickup") String pickup, @RequestParam("dropoff") String dropoff) throws UnirestException {
         try {
             String[] args = new String[2];
             args[0] = "1";
@@ -39,17 +40,25 @@ public class RestControllerAPI {
             HttpResponse<JsonNode> jsonResponse2 = RidesAppConsole.connectURL(args, "dave");
             List<CarPrice> carList = new ArrayList<>();
             RidesAppConsole.searchResultForDave(jsonResponse2, carList);
-            return carList;
+            
+            //process carList based one requirements, as it contained supplier name too
+            JSONArray jArr = new JSONArray();
+            for (int i = 0; i < carList.size(); i++) {
+                JSONObject jObj = new JSONObject();
+                jObj.put("carType", carList.get(i).getCarType());
+                jObj.put("carPrice", carList.get(i).getCarPrice());
+                jArr.put(jObj);
+            }
+            return new ResponseEntity(jArr.toString(), HttpStatus.OK);
         } catch (JSONException ex) {
-            List<CarPrice> carList2 = new ArrayList<>();
             Logger.getLogger(RestControllerAPI.class.getName()).log(Level.SEVERE, null, ex);
-            return carList2;
+            return new ResponseEntity(ex.toString(), HttpStatus.BAD_REQUEST);
         }
     }
     
     // curl http://localhost:8080/api/best-cars?pickup=51.470020,-0.454295&dropoff=51.00000,1.0000&5
     @RequestMapping(value = "/best-cars", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<CarPrice> bestCarsAPI(@RequestParam("pickup") String pickup, @RequestParam("dropoff") String dropoff, @RequestParam("passengersNo") String passengersNo) throws UnirestException {
+    public ResponseEntity<List<CarPrice>> bestCarsAPI(@RequestParam("pickup") String pickup, @RequestParam("dropoff") String dropoff, @RequestParam("passengersNo") String passengersNo) throws UnirestException {
         try {
             String[] args = new String[3];
             args[0] = "2";
@@ -66,11 +75,10 @@ public class RestControllerAPI {
             RidesAppConsole.searchResultWithPassengersNo(jsonResponse, Integer.valueOf(passengersNo), carList);
             
             carList = RidesAppConsole.chooseBestCars(carList);
-            return carList;
+            return new ResponseEntity(carList, HttpStatus.OK);
         } catch (JSONException ex) {
-            List<CarPrice> carList2 = new ArrayList<>();
             Logger.getLogger(RestControllerAPI.class.getName()).log(Level.SEVERE, null, ex);
-            return carList2;
+            return new ResponseEntity(ex.toString(), HttpStatus.BAD_REQUEST);
         }
     }
 }
