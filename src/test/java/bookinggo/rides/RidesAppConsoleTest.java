@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bookinggo.rides;
 
 import com.mashape.unirest.http.HttpResponse;
@@ -14,14 +9,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
  * @author stefan
  */
-public class RidesApplicationTest {
+public class RidesAppConsoleTest {
     
-    public RidesApplicationTest() {
+    public RidesAppConsoleTest() {
     }
     
     @BeforeClass
@@ -41,17 +37,17 @@ public class RidesApplicationTest {
     }
 
     /**
-     * Test of connect method, of class RidesApplication.
+     * Test of connect method, of class RidesAppConsole.
      */
     @Test
     public void testProcessRequest() {
         String[] args = null;
-        Boolean result = RidesApplication.processRequest(args);
+        Boolean result = RidesAppConsole.processRequest(args);
         System.out.println("connect: " + result);
         assertFalse(result);
         
         args = "1 pickup=51.470020,-0.454295&dropoff=51.00000,1.0000 5".split(" ");
-        result = RidesApplication.processRequest(args);
+        result = RidesAppConsole.processRequest(args);
         System.out.println("connect: " + result);
         assertTrue(result);
     }
@@ -60,11 +56,12 @@ public class RidesApplicationTest {
      * Test of searchResultForDave method, of class RidesApplication.
      */
     @Test
+    @Ignore
     public void testSearchResultForDave() {
         System.out.println("searchResultForDave");
         HttpResponse<JsonNode> jsonResponse = null;
         List<CarPrice> carList = null;
-        RidesApplication.searchResultForDave(jsonResponse, carList);
+        RidesAppConsole.searchResultForDave(jsonResponse, carList);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -73,12 +70,13 @@ public class RidesApplicationTest {
      * Test of searchResultWithPassengersNo method, of class RidesApplication.
      */
     @Test
+    @Ignore
     public void testSearchResultWithPassengersNo() {
         System.out.println("searchResultWithPassengersNo");
         HttpResponse<JsonNode> jsonResponse = null;
         int passengersNo = 0;
         List<CarPrice> carList = null;
-        RidesApplication.searchResultWithPassengersNo(jsonResponse, passengersNo, carList);
+        RidesAppConsole.searchResultWithPassengersNo(jsonResponse, passengersNo, carList);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -87,10 +85,11 @@ public class RidesApplicationTest {
      * Test of sortCarsDesc method, of class RidesApplication.
      */
     @Test
+    @Ignore
     public void testSortCarsDesc() {
         System.out.println("sortCarsDesc");
         List<CarPrice> carList = null;
-        RidesApplication.sortCarsDesc(carList);
+        RidesAppConsole.sortCarsDesc(carList);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -99,10 +98,11 @@ public class RidesApplicationTest {
      * Test of chooseBestCars method, of class RidesApplication.
      */
     @Test
+    @Ignore
     public void testChooseBestCars() {
         System.out.println("chooseBestCars");
         List<CarPrice> carList = null;
-        RidesApplication.chooseBestCars(carList);
+        RidesAppConsole.chooseBestCars(carList);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

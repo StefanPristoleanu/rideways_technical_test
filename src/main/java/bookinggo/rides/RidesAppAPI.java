@@ -14,17 +14,19 @@ import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RidesApplication {
+@EnableAutoConfiguration
+public class RidesAppAPI {
 
     private static final HashMap<String, Integer> carCapacityMap = new HashMap<String, Integer>();
 
     //args: pickup=51.470020,-0.454295&dropoff=51.00000,1.0000 5
     public static void main(String[] args) {
-        SpringApplication.run(RidesApplication.class, args);
-        processRequest(args);
+        SpringApplication.run(RidesAppAPI.class, args);
+        //processRequest(args);
     }
 
     protected static HttpResponse<JsonNode> connectURL(String[] args, String supplierName) throws UnirestException {
@@ -92,7 +94,7 @@ public class RidesApplication {
             System.out.println(jsonResponse.getBody().toString());*/
             return true;
         } catch (UnirestException ex) {
-            Logger.getLogger(RidesApplication.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RidesAppAPI.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
