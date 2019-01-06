@@ -43,12 +43,6 @@ public class RidesAppConsole {
         }
         System.out.println("App is running with args: " + Arrays.toString(args));
         List<CarPrice> carList = new ArrayList<>();
-        carCapacityMap.put("STANDARD", 4);
-        carCapacityMap.put("EXECUTIVE", 4);
-        carCapacityMap.put("LUXURY", 4);
-        carCapacityMap.put("PEOPLE_CARRIER", 6);
-        carCapacityMap.put("LUXURY_PEOPLE_CARRIER", 6);
-        carCapacityMap.put("MINIBUS", 16);
 
         //if the first argument is 1, we attempt step1 phase A: The response to Dave's Taxis in descending order
         System.out.println("PassengersNo: " + args[2]);
@@ -74,18 +68,6 @@ public class RidesAppConsole {
             searchResultWithPassengersNo(jsonResponse, passengersNo, carList);
 
             chooseBestCars(carList);
-            /*jsonResponse = Unirest.get(ericAPI)
-                    .header("accept", "application/json").header("pickup", "51.470020,-0.454295")
-                    .asJson();
-            System.out.println(jsonResponse.getBody().toString());
-            
-            jsonResponse = Unirest.get(jeffAPI)
-                    .header("accept", "application/json").header("pickup", "51.470020,-0.454295")
-                    //.queryString("apiKey", "123")
-                    //.field("pickup", "51.470020,-0.454295")
-                    //.field("dropoff", "51.00000,1.0000")
-                    .asJson();
-            System.out.println(jsonResponse.getBody().toString());*/
             return true;
         } catch (UnirestException ex) {
             Logger.getLogger(RidesAppConsole.class.getName()).log(Level.SEVERE, null, ex);
@@ -113,6 +95,14 @@ public class RidesAppConsole {
     public static void searchResultWithPassengersNo(HttpResponse<JsonNode> jsonResponse, int passengersNo, List<CarPrice> carList) {
         if (jsonResponse == null) {
             return;
+        }
+        if(carCapacityMap.isEmpty()){
+            carCapacityMap.put("STANDARD", 4);
+            carCapacityMap.put("EXECUTIVE", 4);
+            carCapacityMap.put("LUXURY", 4);
+            carCapacityMap.put("PEOPLE_CARRIER", 6);
+            carCapacityMap.put("LUXURY_PEOPLE_CARRIER", 6);
+            carCapacityMap.put("MINIBUS", 16);
         }
         JSONArray daveCarsResponse = jsonResponse.getBody().getObject().getJSONArray("options");
         for (int i = 0; i < daveCarsResponse.length(); i++) {
