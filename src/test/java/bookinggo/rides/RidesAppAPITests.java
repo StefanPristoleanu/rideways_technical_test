@@ -16,23 +16,12 @@ public class RidesAppAPITests {
     
     @Autowired
     private RestControllerAPI controller;
-    
-    @LocalServerPort
-    private int port = 8080;
-
-    @Autowired
-    private TestRestTemplate restTemplate;
-
+   
     @Test
     public void contexLoads() throws Exception {
         assertThat(controller).isNotNull();
     }
     
-    @Test
-    public void greetingShouldReturnDefaultMessage() throws Exception {
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api/dave-cars-descending",
-                String.class)).contains("carType");
-    }
 
 }
 
