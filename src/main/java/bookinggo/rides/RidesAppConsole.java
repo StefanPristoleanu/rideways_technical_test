@@ -23,7 +23,7 @@ public class RidesAppConsole {
         processRequest(args);
     }
 
-    protected static HttpResponse<JsonNode> connectURL(String[] args, String supplierName) throws UnirestException {
+    public static HttpResponse<JsonNode> connectURL(String[] args, String supplierName) throws UnirestException {
         String supplierAPI = "https://techtest.rideways.com/" + supplierName;
         supplierAPI += '?' + args[1];
         HttpResponse<JsonNode> jsonResponse = Unirest.get(supplierAPI)
@@ -93,7 +93,7 @@ public class RidesAppConsole {
         }
     }
 
-    protected static void searchResultForDave(HttpResponse<JsonNode> jsonResponse, List<CarPrice> carList) {
+    public static void searchResultForDave(HttpResponse<JsonNode> jsonResponse, List<CarPrice> carList) {
         if (jsonResponse == null) {
             return;
         }
@@ -110,7 +110,7 @@ public class RidesAppConsole {
         }
     }
 
-    protected static void searchResultWithPassengersNo(HttpResponse<JsonNode> jsonResponse, int passengersNo, List<CarPrice> carList) {
+    public static void searchResultWithPassengersNo(HttpResponse<JsonNode> jsonResponse, int passengersNo, List<CarPrice> carList) {
         if (jsonResponse == null) {
             return;
         }
@@ -131,7 +131,7 @@ public class RidesAppConsole {
         //System.out.println("Sorted list: " + carList);
     }
 
-    protected static void chooseBestCars(List<CarPrice> carList) {
+    public static List<CarPrice> chooseBestCars(List<CarPrice> carList) {
         //Collections.sort(carList);
         List<CarPrice> bestCars = new ArrayList<>();
         bestCars.add(carList.get(carList.size() - 1));
@@ -150,6 +150,7 @@ public class RidesAppConsole {
         for (int i = 0; i < bestCars.size(); i++) {
             System.out.println(bestCars.get(i).toStringWithSupplier());
         }
+        return bestCars;
         //System.out.println("Final descending list: " + bestCars);
     }
 }

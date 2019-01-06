@@ -51,6 +51,19 @@ public class RidesAppConsoleTest {
         System.out.println("connect: " + result);
         assertTrue(result);
     }
+    
+    @Test
+    public void testConnectURL() {
+        String[] args = null;
+        Boolean result = RidesAppConsole.processRequest(args);
+        System.out.println("connect: " + result);
+        assertFalse(result);
+        
+        args = "1 pickup=51.470020,-0.454295&dropoff=51.00000,1.0000 5".split(" ");
+        result = RidesAppConsole.processRequest(args);
+        System.out.println("connect: " + result);
+        assertTrue(result);
+    }
 
     /**
      * Test of searchResultForDave method, of class RidesApplication.
@@ -63,7 +76,7 @@ public class RidesAppConsoleTest {
         List<CarPrice> carList = null;
         RidesAppConsole.searchResultForDave(jsonResponse, carList);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
