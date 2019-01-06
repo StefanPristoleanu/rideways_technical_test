@@ -5,7 +5,6 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -13,14 +12,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.http.HttpResponseFactory;
-import org.apache.http.HttpVersion;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.DefaultHttpResponseFactory;
-import org.apache.http.message.BasicStatusLine;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.http.HttpStatus;
+
+/**
+ * 
+ * @author stefan
+ */
 
 public class RidesAppConsole {
 
