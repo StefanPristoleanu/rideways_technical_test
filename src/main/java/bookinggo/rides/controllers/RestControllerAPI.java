@@ -40,12 +40,12 @@ public class RestControllerAPI {
             HttpResponse<JsonNode> jsonResponse = RidesAppConsole.connectURL(args, "dave");
             //error cases received from suppliers, will abort method
             if (jsonResponse.getBody().getObject().has("error")) {
-                return new ResponseEntity("Dave supplier is unavailable right now. Please try again later", HttpStatus.OK);
+                return new ResponseEntity("{\"error\": \"Dave supplier is unavailable right now. Please try again later\"}", HttpStatus.OK);
             }
             List<CarPrice> carList = new ArrayList<>();
             RidesAppConsole.searchResultForDave(jsonResponse, carList);
             if(carList.isEmpty()){
-                return new ResponseEntity("No cars were found.", HttpStatus.OK);
+                return new ResponseEntity("{\"error\": \"No cars were found.\"}", HttpStatus.OK);
             }
             //process carList based one requirements, as it contained supplier name too
             JSONArray jArr = new JSONArray();
@@ -84,7 +84,7 @@ public class RestControllerAPI {
             jsonResponse = RidesAppConsole.connectURL(args, "jeff");
             RidesAppConsole.searchResultWithPassengersNo(jsonResponse, Integer.valueOf(passengersNo), carList);
             if(carList.isEmpty()){
-                return new ResponseEntity("No cars were found.", HttpStatus.OK);
+                return new ResponseEntity("{\"error\": \"No cars were found.\"}", HttpStatus.OK);
             }
             carList = RidesAppConsole.chooseBestCars(carList);
             

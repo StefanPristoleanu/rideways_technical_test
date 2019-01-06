@@ -10,7 +10,7 @@
     </parent>
     <groupId>bookinggo</groupId>
     <artifactId>rides</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>rides</name>
     <description>Technical Test Project for Booking Go</description>
 
