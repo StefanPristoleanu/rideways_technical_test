@@ -37,9 +37,13 @@ public class RestControllerAPI {
             String[] args = new String[2];
             args[0] = "1";
             args[1] = "pickup=" + pickup + "&dropoff=" + dropoff; 
-            HttpResponse<JsonNode> jsonResponse2 = RidesAppConsole.connectURL(args, "dave");
+            HttpResponse<JsonNode> jsonResponse = RidesAppConsole.connectURL(args, "dave");
+            //error cases received from suppliers, will abort method
+            if (jsonResponse.getBody().getObject().has("error")) {
+                return new ResponseEntity("Dave supplier is unavailable right now. Please try again later", HttpStatus.OK);
+            }
             List<CarPrice> carList = new ArrayList<>();
-            RidesAppConsole.searchResultForDave(jsonResponse2, carList);
+            RidesAppConsole.searchResultForDave(jsonResponse, carList);
             if(carList.isEmpty()){
                 return new ResponseEntity("No cars were found.", HttpStatus.OK);
             }

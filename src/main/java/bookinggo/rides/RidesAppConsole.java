@@ -30,9 +30,9 @@ public class RidesAppConsole {
                 .header("accept", "application/json").header("pickup", "51.470020,-0.454295")
                 .asJson();
         System.out.println(supplierName + " response: " + jsonResponse.getBody().toString());
-        if (jsonResponse.getStatus() != 200) {
+        /*if (jsonResponse.getStatus() != 200) {
             return null;
-        }
+        }*/
         return jsonResponse;
     }
 
@@ -93,10 +93,11 @@ public class RidesAppConsole {
     }
 
     public static void searchResultWithPassengersNo(HttpResponse<JsonNode> jsonResponse, int passengersNo, List<CarPrice> carList) {
-        if (jsonResponse == null) {
-            return;
+        //error cases received from suppliers, will abort method
+        if (jsonResponse.getBody().getObject().has("error")) {
+                return;
         }
-        if(carCapacityMap.isEmpty()){
+        if (carCapacityMap.isEmpty()) {
             carCapacityMap.put("STANDARD", 4);
             carCapacityMap.put("EXECUTIVE", 4);
             carCapacityMap.put("LUXURY", 4);

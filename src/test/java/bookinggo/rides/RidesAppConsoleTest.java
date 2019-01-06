@@ -2,6 +2,7 @@ package bookinggo.rides;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -16,22 +17,22 @@ import org.junit.Ignore;
  * @author stefan
  */
 public class RidesAppConsoleTest {
-    
+
     public RidesAppConsoleTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -45,24 +46,24 @@ public class RidesAppConsoleTest {
         Boolean result = RidesAppConsole.processRequest(args);
         System.out.println("connect: " + result);
         assertFalse(result);
-        
+
         args = "1 pickup=51.470020,-0.454295&dropoff=51.00000,1.0000 5".split(" ");
         result = RidesAppConsole.processRequest(args);
         System.out.println("connect: " + result);
         assertTrue(result);
     }
-    
+
     @Test
-    public void testConnectURL() {
+    public void testConnectURL() throws UnirestException {
         String[] args = null;
-        Boolean result = RidesAppConsole.processRequest(args);
-        System.out.println("connect: " + result);
-        assertFalse(result);
-        
+        String supplier = "dave";
         args = "1 pickup=51.470020,-0.454295&dropoff=51.00000,1.0000 5".split(" ");
-        result = RidesAppConsole.processRequest(args);
-        System.out.println("connect: " + result);
-        assertTrue(result);
+        HttpResponse<JsonNode> result = RidesAppConsole.connectURL(args, supplier);
+
+        //{"dropoff":"51.00000,1.0000","options":[{"price":792553,"car_type":"PEOPLE_CARRIER"}],"pickup":"51.470020,-0.454295","supplier_id":"DAVE"}
+        //{"path":"\/dave","error":"Internal Server Error","message":"Something has gone wrong","timestamp":"2019-01-06T18:02:42.653+0000","status":500}
+        System.out.println("connect: " + result.getStatusText() + " , " + result.getBody());
+        assertNotNull(result.getBody());
     }
 
     /**
@@ -119,5 +120,5 @@ public class RidesAppConsoleTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-    
+
 }
