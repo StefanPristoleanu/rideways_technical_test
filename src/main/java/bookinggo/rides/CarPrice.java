@@ -7,10 +7,12 @@ package bookinggo.rides;
 public class CarPrice implements Comparable{
     private String carType;
     private int carPrice;
+    private String carSupplier;
 
-    public CarPrice(String carType, int carPrice) {
+    public CarPrice(String carType, int carPrice, String carSupplier) {
         this.carType = carType;
         this.carPrice = carPrice;
+        this.carSupplier = carSupplier;
     }
     
     /**
@@ -41,9 +43,27 @@ public class CarPrice implements Comparable{
         this.carPrice = carPrice;
     }
     
+    /**
+     * @return the carSupplier
+     */
+    public String getCarSupplier() {
+        return carSupplier;
+    }
+
+    /**
+     * @param carSupplier the carSupplier to set
+     */
+    public void setCarSupplier(String carSupplier) {
+        this.carSupplier = carSupplier;
+    }
+    
     @Override
     public String toString(){
         return carType + " - " + carPrice;
+    }
+    
+    public String toStringWithSupplier(){
+        return carType + " - " + carSupplier + " - " + carPrice;
     }
 
     @Override
