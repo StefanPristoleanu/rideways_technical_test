@@ -3,7 +3,7 @@
 # Setup
 
 My project is built with Maven and can be loaded in any Java IDE (I have developed it in Netbeans).
-Below I will put he console commands to compile and run the project.
+Below I will put the console commands to compile and run the project.
 
 ```
  git clone https://github.com/StefanPristoleanu/rideways_technical_test.git
